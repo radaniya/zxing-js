@@ -1,0 +1,22 @@
+version: '3'
+services:
+  app:
+    build: .
+    user: "${DOCKER_UID}:${DOCKER_GID}"
+    volumes:
+      - .:/home/pn/app:rw
+    ports:
+      - "9000:9000"
+      - "9200:9200"
+    command: sh
+    stdin_open: true
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - PORT=3000
+      - NODE_ENV=docker
+    networks:
+      - zxing-js
+
+networks: 
+  zxing-js:
